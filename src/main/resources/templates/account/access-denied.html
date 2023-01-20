@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section is-small">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column has-text-centered">
+            <h1 class="title">Access Denied</h1>
+            <p class="subtitle">
+              Anda tidak memiliki izin untuk mengakses menu ini.
+              <br />
+              Silakan hubungi admin mengenai detail privilage.
+            </p>
+            <a class="button" th:href="@{/}">Home</a>
+            <a class="button" th:href="@{/}">Contact</a>
+          </div>
+          <div class="column has-text-centered">
+            <img th:src="@{/resources/image/denied.jpg}" class="p-6" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section is-fullheight pb-3 pt-3">
+      <nav
+        th:replace="~{layout :: header (Book, ${actionType} + ' Book Category ' + ${category})}"></nav>
+      <h1 class="title" th:text="|${actionType} Book|"></h1>
+      <form
+        class="alternate-action"
+        method="post"
+        th:object="${dto}"
+        th:attr="data-action=${actionType}">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}" />
+        <input type="hidden" th:field="*{isBorrowed}" />
+        <div class="field">
+          <label class="label">Code*</label>
+          <div class="control">
+            <input
+              class="input readonly-id"
+              type="text"
+              th:field="*{code}"
+              placeholder="Code" />
+          </div>
+          <p class="help is-danger" th:errors="*{code}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Title*</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              th:field="*{title}"
+              placeholder="Title" />
+          </div>
+          <p class="help is-danger" th:errors="*{title}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              th:value="${category}"
+              id="categoryName"
+              name="categoryName"
+              placeholder="Category"
+              readonly />
+          </div>
+          <p class="help is-danger" th:errors="*{categoryName}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Author*</label>
+          <div class="select">
+            <select th:field="*{authorId}">
+              <option
+                th:each="option : ${authorDropdown}"
+                th:value="${option.value}"
+                th:text="${option.text}"></option>
+            </select>
+          </div>
+          <p class="help is-danger" th:errors="*{authorId}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Release Date</label>
+          <div class="control">
+            <input class="input" type="date" th:field="*{releaseDate}" />
+          </div>
+          <p class="help is-danger" th:errors="*{releaseDate}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Total Page</label>
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              th:field="*{totalPage}"
+              placeholder="Total Page" />
+          </div>
+          <p class="help is-danger" th:errors="*{totalPage}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Summary</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              placeholder="Address"
+              th:field="*{summary}"></textarea>
+          </div>
+          <p class="help is-danger" th:errors="*{summary}"></p>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+          <div class="control">
+            <a class="button is-link is-light" th:href="@{/book}">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <th:block th:replace="~{layout :: javascript}"></th:block>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav
+        th:replace="~{layout :: header (Book, 'Detail Category ' + ${category})}"></nav>
+      <a class="button is-small is-warning mb-5" th:href="@{/category}">
+        Back To Category
+      </a>
+      <form
+        method="get"
+        th:attr="action=@{/book/category/detail}"
+        class="field is-grouped">
+        <input type="hidden" name="category" th:attr="value=${category}" />
+        <p class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            name="title"
+            placeholder="Title"
+            th:attr="value=${title}" />
+          <label class="checkbox is-size-6 mt-2">
+            <input type="checkbox" name="status" th:checked="${status}" />
+            Is Available
+          </label>
+        </p>
+        <p class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            name="author"
+            placeholder="author"
+            th:attr="value=${author}" />
+        </p>
+
+        <p class="control">
+          <button type="submit" class="button is-info">Search</button>
+        </p>
+        <p class="control">
+          <a
+            class="button is-info"
+            th:href="@{/book/upsert-form-book(category=${category})}"
+            th:text="|Add New ${category} Book|"></a>
+        </p>
+      </form>
+      <h3
+        class="title is-4 has-text-weight-semibold"
+        th:text="|List of ${category} Book|"></h3>
+      <table class="table is-bordered is-fullwidth">
+        <thead class="is-size-8">
+          <tr>
+            <th>Action</th>
+            <th>Book Title</th>
+            <th>Author</th>
+            <th>Is Borrowed</th>
+            <th>Release Date</th>
+            <th>Total Page</th>
+          </tr>
+        </thead>
+
+        <tbody class="is-size-10">
+          <tr th:each="categoryBook : ${dataGrid}" th:object="${categoryBook}">
+            <td>
+              <a
+                class="button is-warning is-small"
+                th:href="@{/book/upsert-form-book(code=*{code})}">
+                <i class="fas fa-user-edit"></i>
+                <span>Edit</span>
+              </a>
+              <a
+                class="button is-danger is-small"
+                th:href="@{/book/delete(code=*{code})}">
+                <i class="fas fa-trash"></i>
+                <span>Delete</span>
+              </a>
+            </td>
+            <td th:text="*{bookTitle}"></td>
+            <td th:text="*{author}"></td>
+            <td th:text="*{isBorrowed}"></td>
+            <td th:text="*{releaseDate}"></td>
+            <td th:text="*{totalPage}"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              <div class="pagination is-right">
+                <div
+                  class="pagination-previous"
+                  th:text="|Page ${currentPage} of ${totalPages}|"></div>
+                <ul class="pagination-list" th:if="${totalPages != 0}">
+                  <li th:each="page:${#numbers.sequence(1,totalPages)}">
+                    <a
+                      class="pagination-link"
+                      th:href="@{/category/index(page=${page}, city=${city}, author=${author})}"
+                      th:text="${page}"></a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

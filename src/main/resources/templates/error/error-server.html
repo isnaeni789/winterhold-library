@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section is-small">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column has-text-centered">
+            <h1 class="title">500 internal Server Error</h1>
+            <p class="subtitle">
+              An unexpected error has occurred.
+              <br />
+              Please contact the site owner.
+            </p>
+            <p class="subtitle is-6" th:text="${errorMessage}"></p>
+            <a class="button" th:href="@{/}">Home</a>
+            <a class="button" th:href="@{/}">Contact</a>
+          </div>
+          <div class="column has-text-centered">
+            <img th:src="@{/resources/image/500.jpg}" class="p-6" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

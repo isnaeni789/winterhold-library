@@ -1,0 +1,18 @@
+html,
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+body > footer {
+  margin-top: auto;
+}
+a.split {
+  float: right;
+}
+.navbar-item.logout {
+  padding: 0px;
+}
+button.button.is-medium.is-info.has-text-warning {
+  padding-left: 0.6em;
+}

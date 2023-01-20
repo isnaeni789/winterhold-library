@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav
+        th:replace="~{layout :: header (Loan, ${actionType} + ' Loan')}"></nav>
+      <h1 class="title" th:text="|${actionType} Loan|"></h1>
+      <form
+        class="alternate-action loan-form"
+        th:attr="data-action=${actionType}"
+        method="post"
+        th:object="${dto}">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}" />
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{dueDate}" />
+        <input type="hidden" th:field="*{returnDate}" />
+        <div class="field">
+          <label class="label">Customer Name*</label>
+          <div class="select">
+            <select th:field="*{customerNumber}" class="readonly-select">
+              <option
+                th:each="option : ${customerDropdown}"
+                th:value="${option.value}"
+                th:text="${option.text}"></option>
+            </select>
+          </div>
+          <p class="help is-danger" th:errors="*{customerNumber}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Book Title*</label>
+          <div class="select">
+            <select th:field="*{bookCode}" class="readonly-select">
+              <option
+                th:each="option : ${bookDropdown}"
+                th:value="${option.value}"
+                th:text="${option.text}"></option>
+            </select>
+          </div>
+          <p class="help is-danger" th:errors="*{bookCode}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Loan Date*</label>
+          <div class="control">
+            <input
+              class="input readonly-id loanDate"
+              type="date"
+              th:field="*{loanDate}" />
+          </div>
+          <p class="help is-danger" th:errors="*{loanDate}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Note</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              placeholder="Note"
+              th:field="*{note}"></textarea>
+          </div>
+          <p class="help is-danger" th:errors="*{note}"></p>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+          <div class="control">
+            <a class="button is-link is-light" th:href="@{/loan}">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </section>
+    <th:block th:replace="~{layout :: javascript}"></th:block>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winterhold Library System</title>
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/resources/css/bulma.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/font-awesome.css}" />
+    <link rel="stylesheet" th:href="@{/resources/css/site.css}" />
+    <script th:src="@{/resources/js/jquery-3.6.0.js}"></script>
+  </head>
+  <body>
+    <nav
+      th:fragment="navigation"
+      class="navbar is-info has-shadow"
+      role="navigation"
+      aria-label="main navigation">
+      <div class="navbar-brand has-text-weight-medium">
+        <a
+          class="navbar-item has-text-weight-bold has-text-warning is-size-3"
+          th:href="@{/}">
+          Winterhold
+        </a>
+        <a class="navbar-item" th:href="@{/}">Home</a>
+        <a class="navbar-item" th:href="@{/author}">Authors</a>
+        <a class="navbar-item" th:href="@{/book}">Books</a>
+        <a class="navbar-item" th:href="@{/customer}">Customers</a>
+        <a class="navbar-item" th:href="@{/loan}">Loan</a>
+        <a
+          class="navbar-item"
+          target="_blank"
+          th:href="@{/swagger-ui/index.html}">
+          API Documentation
+        </a>
+      </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item has-text-weight-medium logout">
+            <p th:text="${#authentication.getName()}"></p>
+          </div>
+          <div class="navbar-item logout">
+            <form method="post" th:attr="action=@{/logout}">
+              <input
+                type="hidden"
+                th:name="${_csrf.parameterName}"
+                th:value="${_csrf.token}" />
+              <button
+                class="button is-medium is-info has-text-warning"
+                type="submit">
+                <span class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <nav
+      class="breadcrumb"
+      aria-label="breadcrumbs"
+      th:fragment="header (title, detail)">
+      <ul class="breadcrumb-link">
+        <li><a th:href="@{/}">Winterhold</a></li>
+        <li><a th:attr="data-href=|/${title}|" th:text="${title}">Book</a></li>
+        <li>
+          <a th:href="@{#}" th:text="${detail}">Index</a>
+        </li>
+      </ul>
+    </nav>
+
+    <footer th:fragment="footer" class="footer p-0">
+      <div class="container is-fullhd">
+        <div class="notification has-text-centered">
+          <p>
+            <strong>Winterhold</strong>
+            by
+            <a href="https://instagram.com/inf00">Isnaeni Nurfalah</a>
+            . &copy; 2022 . Built With Bulma . The source code is licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>
+            . The website content is licensed
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+              CC BY NC SA 4.0
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </footer>
+    <th:block th:fragment="javascript">
+      <script th:src="@{/resources/js/site.js}" defer></script>
+    </th:block>
+  </body>
+</html>

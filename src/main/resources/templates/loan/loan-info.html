@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav th:replace="~{layout :: header (Loan, |Detail Loan|)}"></nav>
+      <div th:object="${loan}" class="columns is-multiline is-4 mb-6">
+        <div class="column is-half" th:object="${book}">
+          <div class="notification">
+            <h3
+              class="title is-4 mb-6 has-text-weight-semibold"
+              th:text="|Detail Book *{title}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Title : *{title}|"></h3>
+            <h3
+              class="subtitle is-5 mb-1"
+              th:text="|Category : *{categoryName}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Author : *{author}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Floor : *{floor}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Isle : *{isle}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Bay : *{bay}|"></h3>
+          </div>
+        </div>
+        <div class="column is-half" th:object="${customer}">
+          <div class="notification">
+            <h3
+              class="title is-4 mb-6 has-text-weight-semibold"
+              th:text="|Detail Customer *{membershipNumber}|"></h3>
+            <h3
+              class="subtitle is-5 mb-1"
+              th:text="|Membership Number : *{membershipNumber}|"></h3>
+            <h3
+              class="subtitle is-5 mb-1"
+              th:text="|Full Name : *{firstName} *{lastName}|"></h3>
+            <h3 class="subtitle is-5 mb-1" th:text="|Phone : *{phone}|"></h3>
+            <h3
+              class="subtitle is-5 mb-1"
+              th:text="|Membership Expire Date : *{membershipExpireDate}|"></h3>
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+      <a class="button is-warning" th:href="@{/loan}">Back To Loan</a>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

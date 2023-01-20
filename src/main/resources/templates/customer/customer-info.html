@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav
+        th:replace="~{layout :: header (Customer, |Detail ${customer.firstName} ${customer.lastName}|)}"></nav>
+      <div th:object="${customer}" class="mb-6">
+        <h3
+          class="title is-4 mb-6 has-text-weight-semibold"
+          th:text="|Information Customer About *{firstName} *{lastName}|"></h3>
+        <h3
+          class="subtitle is-5 mb-1"
+          th:text="|Full Name : *{firstName} *{lastName}|"></h3>
+        <h3
+          class="subtitle is-5 mb-1"
+          th:text="|Birth Date : *{birthDate}|"></h3>
+        <h3 class="subtitle is-5 mb-1" th:text="|Gender : *{gender}|"></h3>
+        <h3 class="subtitle is-5 mb-1" th:text="|Phone : *{phone}|"></h3>
+        <h3 class="subtitle is-5 mb-1" th:text="|Address : *{address}|"></h3>
+      </div>
+      <a class="button is-warning" th:href="@{/customer}">Back To Customer</a>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

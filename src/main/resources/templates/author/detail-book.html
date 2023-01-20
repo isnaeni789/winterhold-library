@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav th:replace="~{layout :: header (Book, 'Detail Author')}"></nav>
+      <a class="button is-small is-warning mb-2" th:href="@{/author}">
+        Back To Author Index
+      </a>
+      <div th:object="${author}" class="mb-4">
+        <h3
+          class="title is-5 mb-2 has-text-weight-semibold"
+          th:text="|Information Author About *{title} *{firstName} *{lastName}|"></h3>
+        <span
+          class="subtitle-5"
+          th:text="|Name : *{title} *{firstName} *{lastName}|"></span>
+        <br />
+        <span class="subtitle-5" th:text="|Birth Date : *{birthDate}|"></span>
+        <br />
+        <span class="subtitle-5 is-inline">Deceased Date:</span>
+        <span class="subtitle-5" th:text="*{deceasedDate} ?: '-'"></span>
+        <br />
+        <span class="subtitle-5" th:text="|Education : *{education}|"></span>
+        <br />
+        <span class="subtitle-5" th:text="|Summary : *{summary}|"></span>
+        <br />
+      </div>
+      <table class="table is-bordered is-fullwidth">
+        <thead class="is-size-8">
+          <tr>
+            <th>Book Title</th>
+            <th>Category</th>
+            <th>Is Borrowed</th>
+            <th>Release Date</th>
+            <th>Total Page</th>
+          </tr>
+        </thead>
+
+        <tbody class="is-size-10">
+          <tr th:each="author : ${dataGrid}" th:object="${author}">
+            <td th:text="*{bookTitle}"></td>
+            <td th:text="*{category}"></td>
+            <td th:text="*{isBorrowed}"></td>
+            <td th:text="*{releaseDate}"></td>
+            <td th:text="*{totalPage}"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <div class="pagination is-right">
+                <div
+                  class="pagination-previous"
+                  th:text="|Page ${currentPage} of ${totalPages}|"></div>
+                <ul class="pagination-list" th:if="${totalPages != 0}">
+                  <li th:each="page:${#numbers.sequence(1,totalPages)}">
+                    <a
+                      class="pagination-link"
+                      th:href="@{/author/index(page=${page}, name=${name})}"
+                      th:text="${page}"></a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>

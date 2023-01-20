@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section is-fullheight pb-3 pt-3">
+      <nav
+        th:replace="~{layout :: header (Book, ${actionType} + ' Category')}"></nav>
+      <h1 class="title" th:text="|${actionType} Category|"></h1>
+      <form
+        class="alternate-action"
+        method="post"
+        th:object="${dto}"
+        th:attr="data-action=${actionType}">
+        <input
+          type="hidden"
+          th:name="${_csrf.parameterName}"
+          th:value="${_csrf.token}" />
+        <div class="field">
+          <label class="label">Category Name*</label>
+          <div class="control">
+            <input
+              class="input readonly-id"
+              type="text"
+              th:field="*{name}"
+              placeholder="Category Name" />
+          </div>
+          <p class="help is-danger" th:errors="*{name}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Floor*</label>
+          <div class="control">
+            <input
+              class="input"
+              type="number"
+              th:field="*{floor}"
+              placeholder="Floor" />
+          </div>
+          <p class="help is-danger" th:errors="*{floor}"></p>
+        </div>
+        <div class="field">
+          <label class="label">Isle*</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              th:field="*{isle}"
+              placeholder="Isle" />
+          </div>
+          <p class="help is-danger" th:errors="*{isle}"></p>
+        </div>
+
+        <div class="field">
+          <label class="label">Bay*</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              th:field="*{bay}"
+              placeholder="Bay" />
+          </div>
+          <p class="help is-danger" th:errors="*{bay}"></p>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link" type="submit">Submit</button>
+          </div>
+          <div class="control">
+            <a class="button is-link is-light" th:href="@{/book}">Cancel</a>
+          </div>
+        </div>
+      </form>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+    <th:block th:replace="~{layout :: javascript}"></th:block>
+  </body>
+</html>

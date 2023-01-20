@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="~{layout :: head}"></head>
+  <body>
+    <nav th:replace="~{layout :: navigation}"></nav>
+    <section class="section pb-3 pt-3">
+      <nav th:replace="~{layout :: header (Customer, Index)}"></nav>
+      <form
+        method="get"
+        th:attr="action=@{/customer/index}"
+        class="field is-grouped">
+        <p class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            name="number"
+            placeholder="Find by Membership number"
+            th:attr="value=${number}" />
+        </p>
+        <p class="control is-expanded">
+          <input
+            class="input"
+            type="text"
+            name="name"
+            placeholder="Find by Customer Name"
+            th:attr="value=${name}" />
+        </p>
+        <p class="control">
+          <button type="submit" class="button is-info">Search</button>
+        </p>
+        <p class="control">
+          <a class="button is-info" th:href="@{/customer/upsert-form}">
+            Add New Customer
+          </a>
+        </p>
+      </form>
+      <table class="table is-bordered is-fullwidth">
+        <thead class="is-size-8">
+          <tr>
+            <th>Action</th>
+            <th>Membership Number</th>
+            <th>Full Name</th>
+            <th>Expire Date</th>
+          </tr>
+        </thead>
+
+        <tbody class="is-size-10">
+          <tr th:each="customer : ${dataGrid}" th:object="${customer}">
+            <td>
+              <a
+                class="button is-warning is-small"
+                th:href="@{/customer/upsert-form(number=*{membershipNumber})}">
+                <i class="fas fa-user-edit"></i>
+                <span>Edit</span>
+              </a>
+              <a
+                class="button is-danger is-small"
+                th:href="@{/customer/delete(number=*{membershipNumber})}">
+                <i class="fas fa-trash"></i>
+                <span>Delete</span>
+              </a>
+              <a
+                class="button is-info is-small"
+                th:href="@{/customer/extend(number=*{membershipNumber})}">
+                <i class="fas fa-book"></i>
+                <span>Extend</span>
+              </a>
+            </td>
+            <td>
+              <a
+                th:text="*{membershipNumber}"
+                th:href="@{/customer/info(number=*{membershipNumber})}"></a>
+            </td>
+            <td th:text="*{fullName}"></td>
+            <td th:text="*{expireDate}"></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <div class="pagination is-right">
+                <div
+                  class="pagination-previous"
+                  th:text="|Page ${currentPage} of ${totalPages}|"></div>
+                <ul class="pagination-list" th:if="${totalPages != 0}">
+                  <li th:each="page:${#numbers.sequence(1,totalPages)}">
+                    <a
+                      class="pagination-link"
+                      th:href="@{/customer/index(page=${page}, number=${number}, name=${name})}"
+                      th:text="${page}"></a>
+                  </li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+    <footer th:replace="~{layout :: footer}"></footer>
+  </body>
+</html>
